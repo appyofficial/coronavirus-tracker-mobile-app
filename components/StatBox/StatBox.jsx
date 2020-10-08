@@ -1,7 +1,8 @@
 import React from "react";
-import { Dimensions, View } from "react-native";
+import { Dimensions, View, Image } from "react-native";
 import { Card, Title, Paragraph, Switch } from "react-native-paper";
 import formatNumber from "../../utils/formatNumber";
+import img from "../../images/active.png";
 
 export default function StatBox({
   cases,
@@ -9,6 +10,9 @@ export default function StatBox({
   backgroundColor,
   height,
   size,
+  imgUrl,
+  titleColor,
+  casesColor,
 }) {
   switch (size) {
     case "large":
@@ -42,10 +46,18 @@ export default function StatBox({
         overflow: "hidden",
       }}
     >
-      <Paragraph style={{ color: "white", fontWeight: "bold" }}>
+      <Paragraph
+        style={{ color: titleColor ? titleColor : "white", fontWeight: "bold" }}
+      >
         {title}
       </Paragraph>
-      <Title style={{ color: "white", fontWeight: "bold", marginTop: 10 }}>
+      <Title
+        style={{
+          color: titleColor ? titleColor : "white",
+          fontWeight: "bold",
+          marginTop: 10,
+        }}
+      >
         {formatNumber(Number(cases))}
       </Title>
       <View
@@ -60,6 +72,15 @@ export default function StatBox({
           opacity: 0.5,
         }}
       ></View>
+      <Image
+        style={{
+          position: "absolute",
+          width: 34,
+          height: 34,
+          right: 0,
+        }}
+        source={imgUrl}
+      />
     </Card>
   );
 }

@@ -16,7 +16,7 @@ const AppContainer = () => (
         }}
       />
       <Tab.Screen
-        name="List"
+        name="Countries"
         component={ListScreenStack}
         options={{
           title: "Countries",

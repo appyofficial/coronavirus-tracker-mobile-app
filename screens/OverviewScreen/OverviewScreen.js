@@ -14,6 +14,7 @@ import CountryListItem from "../../components/CountryList/CountryListItem";
 import StatBox from "../../components/StatBox/StatBox";
 import LineGraph from "../../components/LineGraph/LineGraph";
 import styles from "./OverviewScreen.css";
+import { Divider } from "react-native-paper";
 
 function OverviewScreen({ navigation }) {
   const {
@@ -56,7 +57,16 @@ function OverviewScreen({ navigation }) {
         >
           <Text>
             {countryISO === "global" ? (
-              "Global"
+              <View>
+                <Image
+                  style={{
+                    height: 35,
+                    width: 35,
+                    borderRadius: 50,
+                  }}
+                  source={require("../../images/world.png")}
+                />
+              </View>
             ) : (
               <View>
                 <Image
@@ -75,13 +85,13 @@ function OverviewScreen({ navigation }) {
     });
   }, [setCountryISO, currentCountryData]);
 
-  const handlePress = (iso) => {
+  const handlePress = (iso = "global") => {
     setCountryISO(iso);
     setShowModal(false);
   };
 
   return (
-    <View style={styles.main}>
+    <ScrollView style={styles.main}>
       <View
         style={{
           backgroundColor: "#483f97",
@@ -103,12 +113,14 @@ function OverviewScreen({ navigation }) {
             cases={currentCountryData?.cases}
             size="medium"
             backgroundColor="#ffb259"
+            imgUrl={require("../../images/infected.png")}
           />
           <StatBox
             title="Active cases"
             cases={currentCountryData?.active}
             size="medium"
             backgroundColor="#4cb5ff"
+            imgUrl={require("../../images/active.png")}
           />
         </View>
         <View
@@ -123,6 +135,7 @@ function OverviewScreen({ navigation }) {
             title="Total recovered"
             cases={currentCountryData?.recovered}
             backgroundColor="#4BD97A"
+            imgUrl={require("../../images/recovered.png")}
           />
         </View>
         <View
@@ -139,16 +152,100 @@ function OverviewScreen({ navigation }) {
             cases={currentCountryData?.critical}
             size="medium"
             backgroundColor="#8f5aff"
+            imgUrl={require("../../images/critical.png")}
           />
           <StatBox
             title="Deaths"
             cases={currentCountryData?.deaths}
             size="medium"
             backgroundColor="#ff5958"
+            imgUrl={require("../../images/deaths.png")}
           />
         </View>
       </View>
 
+      <View
+        style={{
+          width: "100%",
+
+          alignSelf: "center",
+          backgroundColor: "white",
+          borderRadiusTop: 20,
+          marginTop: -18,
+          marginBottom: 20,
+          flex: 1,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "700",
+            color: "#000010",
+            padding: 20,
+          }}
+        >
+          Today's cases
+        </Text>
+        <Divider style={{ marginBottom: 8 }} />
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-around",
+          }}
+        >
+          <StatBox
+            size="small"
+            title="Cases"
+            cases={currentCountryData?.todayCases}
+            backgroundColor="whitesmoke"
+            titleColor="black"
+            //imgUrl={require("../../images/recovered.png")}
+          />
+          <StatBox
+            size="small"
+            title="Recovered"
+            cases={currentCountryData?.todayRecovered}
+            backgroundColor="whitesmoke"
+            titleColor="black"
+            //imgUrl={require("../../images/recovered.png")}
+          />
+          <StatBox
+            size="small"
+            backgroundColor="whitesmoke"
+            titleColor="black"
+            title="Deaths"
+            cases={currentCountryData?.todayDeaths}
+
+            //imgUrl={require("../../images/recovered.png")}
+          />
+        </View>
+      </View>
+
+      <View
+        style={{
+          width: "100%",
+
+          alignSelf: "center",
+          backgroundColor: "white",
+          borderRadiusTop: 20,
+          marginBottom: 20,
+          flex: 1,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "700",
+            color: "#000010",
+            padding: 20,
+          }}
+        >
+          {`${currentCountryData?.tests} people tested for Covid 19`}
+        </Text>
+      </View>
+
+      {/*MODAL........ */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -166,7 +263,7 @@ function OverviewScreen({ navigation }) {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontSize: 20, fontWeight: "bold", flex: 1 }}>
+            <Text style={{ fontSize: 24, fontWeight: "bold", flex: 1 }}>
               Select
             </Text>
           </View>
@@ -175,7 +272,10 @@ function OverviewScreen({ navigation }) {
             contentContainerStyle={styles.modalScrollView}
             showsVerticalScrollIndicator={false}
           >
-            <TouchableOpacity style={styles.modalViewItem}>
+            <TouchableOpacity
+              onPress={() => handlePress()}
+              style={styles.modalViewItem}
+            >
               <Text>Global</Text>
             </TouchableOpacity>
             {countries.map(({ country, countryInfo }) => (
@@ -190,7 +290,7 @@ function OverviewScreen({ navigation }) {
           </ScrollView>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 }
 

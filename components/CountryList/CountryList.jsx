@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 
 import CountryListItem from "./CountryListItem";
 import { AntDesign } from "@expo/vector-icons";
