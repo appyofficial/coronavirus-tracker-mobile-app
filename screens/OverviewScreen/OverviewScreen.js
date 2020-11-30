@@ -225,7 +225,6 @@ function OverviewScreen({ navigation }) {
       <View
         style={{
           width: "100%",
-
           alignSelf: "center",
           backgroundColor: "white",
           borderRadiusTop: 20,

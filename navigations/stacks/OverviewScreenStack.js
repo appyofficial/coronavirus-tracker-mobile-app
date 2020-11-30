@@ -3,9 +3,12 @@ import { Text, View } from "react-native";
 import OverviewScreen from "../../screens/OverviewScreen/OverviewScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import { DataContext } from "../../provider/DataProvider";
+
 const Stack = createStackNavigator();
+
 const OverviewScreenStack = () => {
   const { currentCountryData, countryISO } = useContext(DataContext);
+
   const HeaderTitle = ({ title, subTitle, dark }) => (
     <View style={{ padding: 10 }}>
       <Text
@@ -20,6 +23,7 @@ const OverviewScreenStack = () => {
       <Text style={{ color: dark ? "grey" : "#f9f9f9" }}>{subTitle}</Text>
     </View>
   );
+
   return (
     <Stack.Navigator>
       <Stack.Screen
